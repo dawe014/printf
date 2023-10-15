@@ -10,7 +10,7 @@
  * @s: flag for the ' ' character
  * @h: flag for the '#' character
  */
-typedef struct PrintFlags 
+typedef struct PrintFlags
 {
 	int p;
 	int s;
@@ -50,5 +50,4 @@ int disp_str_rot13(va_list list, print_f *flags);
 int disp_address(va_list list, print_f *flags);
 char *convertToBaseString(unsigned long int n, int b, int lcase);
 int (*PrintFunction(char s))(va_list, print_f *);
-
 #endif
