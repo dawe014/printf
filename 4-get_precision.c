@@ -1,42 +1,41 @@
 #include "main.h"
 
 /**
- * calculatePrecision - Calculates the precision for printing
- * @format: Formatted string in which to print the arguments
- * @cIndex: Current index in the format string
- * @argsList: List of arguments
+ * getPrecision - Calculates the precision for printing
+ * @f: Formatted string in which to print the arguments
+ * @i: List of arguments to be printed.
+ * @l: list of arguments.
  *
  * Return: Precision.
  */
-int calculatePrecision(const char *format, int *cIndex, va_list argsList)
+int getPrecision(const char *f, int *i, va_list l)
 {
-int currIndex = *cIndex + 1;
-int precision = -1;
+	int curr_i = *i + 1;
+	int p = -1;
 
-if (format[currIndex] != '.')
-return (precision);
-precision = 0;
+	if (f[curr_i] != '.')
+		return (p);
 
-for (currIndex += 1; format[currIndex] != '\0'; currIndex++)
-{
-if (isDigitCharacter(format[currIndex]))
-{
-precision *= 10;
-precision += format[currIndex] - '0';
-}
-else if (format[currIndex] == '*')
-{
-currIndex++;
-precision = va_arg(argsList, int);
-break;
-}
-else
-{
-break;
-}
-}
+	p = 0;
 
-*cIndex = currIndex - 1;
+	for (curr_i += 1; f[curr_i] != '\0'; curr_i++)
+	{
+		if (isDigit(f[curr_i]))
+		{
+			p *= 10;
+			p += f[curr_i] - '0';
+		}
+		else if (f[curr_i] == '*')
+		{
+			curr_i++;
+			p = va_arg(l, int);
+			break;
+		}
+		else
+			break;
+	}
 
-return (precision);
+	*i = curr_i - 1;
+
+	return (p);
 }

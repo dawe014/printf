@@ -1,38 +1,36 @@
 #include "main.h"
 
 /**
- * calculateWidth - Calculates the width for printing
- * @format: Formatted string in which to print the arguments.
- * @currentIndex: Current index in the format string.
- * @argsList: List of arguments.
+ * getWidth - Calculates the width for printing
+ * @f: Formatted string in which to print the arguments.
+ * @i: List of arguments to be printed.
+ * @l: list of arguments.
  *
- * Return: Width.
+ * Return: width.
  */
-int calculateWidth(const char *format, int *currentIndex, va_list argsList)
+int getWidth(const char *f, int *i, va_list l)
 {
-int currIndex;
-int width = 0;
+	int curr_i;
+	int w = 0;
 
-for (currIndex = *currentIndex + 1; format[currIndex] != '\0'; currIndex++)
-{
-if (isDigitCharacter(format[currIndex]))
-{
-width *= 10;
-width += format[currIndex] - '0';
-}
-else if (format[currIndex] == '*')
-{
-currIndex++;
-width = va_arg(argsList, int);
-break;
-}
-else
-{
-break;
-}
-}
+	for (curr_i = *i + 1; f[curr_i] != '\0'; curr_i++)
+	{
+		if (isDigit(f[curr_i]))
+		{
+			w *= 10;
+			w += f[curr_i] - '0';
+		}
+		else if (f[curr_i] == '*')
+		{
+			curr_i++;
+			w = va_arg(l, int);
+			break;
+		}
+		else
+			break;
+	}
 
-*currentIndex = currIndex - 1;
+	*i = curr_i - 1;
 
-return (width);
+	return (w);
 }

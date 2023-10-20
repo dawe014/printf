@@ -19,98 +19,98 @@
 #define S_SHORT 1
 
 /**
- * struct PrintFormat - Structure to represent a print format
+ * struct fmt - Struct op
  *
- * @format: The format specifier.
- * @printFunction: The associated printing function.
+ * @fmt: The format.
+ * @fn: The function associated.
  */
-struct PrintFormat
+struct fmt
 {
-	char format;
-	int (*printFunction)(va_list, char[], int, int, int, int);
+	char fmt;
+	int (*fn)(va_list, char[], int, int, int, int);
 };
 
 /**
- * typedef fmt_t - Typedef for PrintFormat structure
+ * typedef struct fmt fmt_t - Struct op
  *
- * @format: The format specifier.
- * @printFunction: The associated printing function.
+ * @fmt: The format.
+ * @fm_t: The function associated.
  */
-typedef struct PrintFormat fmt_t;
+typedef struct fmt fmt_t;
 
 int _printf(const char *format, ...);
-int handlePrintFormat(const char *fmt, int *currentIndex, va_list argsList,
-char buffer[], int flags, int width, int precision, int size);
+int handlePrint(const char *fmt, int *i,
+va_list l, char b[], int f, int w, int p, int s);
 
 /****************** FUNCTIONS ******************/
 
-/* Functions to print characters and strings */
-int printCharacter(va_list argumentList, char outputBuffer[], int flags,
-int outputWidth, int precision, int size);
-int printString(va_list argumentList, char outputBuffer[], int flags,
-int outputWidth, int precision, int size);
-int printPercentSign(va_list argumentList, char outputBuffer[], int flags,
-int outputWidth, int precision, int size);
+/* Funtions to print chars and strings */
+int printCharacter(va_list types, char b[],
+	int f, int w, int p, int s);
+int printString(va_list types, char b[],
+	int f, int w, int p, int s);
+int printPercentage(va_list types, char b[],
+	int f, int w, int p, int s);
 
 /* Functions to print numbers */
-int printInteger(va_list argumentList, char outputBuffer[], int flags,
-int outputWidth, int precision, int size);
-int printBinary(va_list argumentList, char outputBuffer[], int flags,
-int outputWidth, int precision, int size);
-int printUnsignedNumber(va_list arguments, char outputBuffer[],
-int activeFlags, int outputWidth, int precision, int sizeSpecifier);
-int printOctal(va_list argumentList, char outputBuffer[], int flags,
-int outputWidth, int precision, int size);
-int printHexadecimal(va_list argumentList, char outputBuffer[], int flags,
-int outputWidth, int precision, int size);
-int printHexadecimalUpper(va_list argumentList, char outputBuffer[],
-int flags, int outputWidth, int precision, int size);
+int printInteger(va_list types, char b[],
+	int f, int w, int p, int s);
+int printBinary(va_list types, char b[],
+	int f, int w, int p, int s);
+int printUnsigned(va_list types, char b[],
+	int f, int w, int p, int s);
+int printOctal(va_list types, char b[],
+	int f, int w, int p, int s);
+int printHexaDecimal(va_list types, char b[],
+	int f, int w, int p, int s);
+int printHexaUpper(va_list types, char b[],
+	int f, int w, int p, int s);
 
-int printHexadecimalFormatter(va_list argumentList, char characterMap[],
-char outputBuffer[], int flags, char flagChar, int w, int precision, int size);
+int printHexa(va_list types, char m[],
+char b[], int f, char flag_ch, int w, int p, int s);
 
-/* Function to print non-printable characters */
-int printNonPrintableCharacters(va_list arguments, char outputBuffer[],
-int activeFlags, int outputWidth, int precision, int sizeSpecifier);
+/* Function to print non printable characters */
+int printNonPrintable(va_list types, char b[],
+	int f, int w, int p, int s);
 
-/* Function to print memory addresses */
-int printMemoryAddress(va_list arguments, char outputBuffer[], int activeFlags,
-int outputWidth, int precision, int sizeSpecifier);
+/* Funcion to print memory address */
+int printPointer(va_list types, char b[],
+	int f, int w, int p, int s);
 
-/* Functions to handle other specifiers */
-int calculateActiveFlags(const char *format, int *currentIndex);
-int calculateWidth(const char *format, int *currentIndex, va_list argsList);
-int calculatePrecision(const char *format, int *cIndex, va_list argsList);
+/* Funciotns to handle other specifiers */
+int getFlags(const char *f, int *i);
+int getWidth(const char *f, int *i, va_list l);
+int getPrecision(const char *f, int *i, va_list l);
+int getSize(const char *f, int *i);
 
-int calculateSize(const char *format, int *currentIndex);
+/*Function to print string in reverse*/
+int printReverse(va_list types, char b[],
+	int f, int w, int p, int s);
 
-/* Function to print a string in reverse */
-int printReversedString(va_list arguments, char outputBuffer[],
-int activeFlags, int outputWidth, int precision, int sizeSpecifier);
+/*Function to print a string in rot 13*/
+int printRotstring(va_list types, char b[],
+	int f, int w, int p, int s);
 
-/* Function to print a string in ROT13 encoding */
-int printRot13String(va_list arguments, char outputBuffer[], int activeFlags,
-int outputWidth, int precision, int sizeSpecifier);
+/* width handler */
+int handlerWriteC(char c, char b[],
+	int f, int w, int p, int s);
+int writeNumbers(int is_positive, int ind, char b[],
+	int f, int w, int p, int s);
+int writeNum(int ind, char bff[], int f, int w, int p,
+	int length, char padd, char extra_c);
+int writePointer(char b[], int ind, int length,
+	int w, int f, char padd, char extra_c, int padd_start);
 
-/* Width handler */
-int handleWriteCharacter(char character, char outputBuffer[], int flags,
-int outputWidth, int precision, int size);
-int writeNumber(int isPositive, int index, char outputBuffer[], int flags,
-int outputWidth, int precision, int size);
-int writeFormattedNumber(int index, char buffer[], int flags, int outputWidth,
-int precision, int length, char paddingChar, char extraChar);
-int writeMemoryAddress(char outputBuffer[], int index, int length,
-int outputWidth, int flags, char paddingChar, char extraChar, int padd_start);
-
-int writeUnsignedNumber(int isNegative, int index, char outputBuffer[],
-int flags, int outputWidth, int precision, int size);
+int writeUnsigned(int is_negative, int ind,
+char b[],
+	int f, int w, int p, int s);
 
 /****************** UTILS ******************/
-int isCharacterPrintable(char character);
-int appendHexadecimalCode(char input, char output[], int index);
-int isDigitCharacter(char character);
+int isPrintable(char);
+int appendHexaCode(char, char[], int);
+int isDigit(char);
 
-long int convertSizeSpecifiedNumber(long int number, int size);
-long int convertSizeSpecifiedUnsignedNumber(unsigned int number, int size);
+long int convertSizeNumber(long int num, int s);
+long int convertSizeUnsigned(unsigned long int num, int s);
 
 #endif

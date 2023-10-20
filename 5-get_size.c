@@ -1,34 +1,26 @@
 #include "main.h"
 
 /**
- * calculateSize - Calculates the size to cast the argument
- * @format: Formatted string in which to print the arguments
- * @currentIndex: Current index in the format string
+ * getSize - Calculates the size to cast the argument
+ * @f: Formatted string in which to print the arguments
+ * @i: List of arguments to be printed.
  *
- * Return: Size.
+ * Return: Precision.
  */
-int calculateSize(const char *format, int *currentIndex)
+int getSize(const char *f, int *i)
 {
-int currIndex = *currentIndex + 1;
-int size = 0;
+	int curr_i = *i + 1;
+	int s = 0;
 
-if (format[currIndex] == 'l')
-{
-size = S_LONG;
-}
-else if (format[currIndex] == 'h')
-{
-size = S_SHORT;
-}
+	if (f[curr_i] == 'l')
+		s = S_LONG;
+	else if (f[curr_i] == 'h')
+		s = S_SHORT;
 
-if (size == 0)
-{
-*currentIndex = currIndex - 1;
-}
-else
-{
-*currentIndex = currIndex;
-}
+	if (s == 0)
+		*i = curr_i - 1;
+	else
+		*i = curr_i;
 
-return (size);
+	return (s);
 }
