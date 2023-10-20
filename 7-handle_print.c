@@ -18,21 +18,11 @@ char buffer[], int flags, int width, int precision, int size)
 {
 int i, unknownLen = 0, printedChars = -1;
 fmt_t fmtTypes[] = {
-{'c', printCharacter},
-{'s', printString},
-{'%', printPercentSign},
-{'i', printInteger},
-{'i', printInteger},
-{'b', printBinary},
-{'u', printUnsignedNumber},
-{'o', printOctal},
-{'x', printHexadecimal},
-{'X', printHexadecimalUpper},
-{'p', printMemoryAddress},
-{'S', printNonPrintableCharacters},
-{'r', printReversedString},
-{'R', printRot13String},
-{'\0', NULL}
+{'c', printCharacter}, {'s', printString}, {'%', printPercentSign},
+{'i', printInteger}, {'i', printInteger}, {'b', printBinary},
+{'u', printUnsignedNumber}, {'o', printOctal}, {'x', printHexadecimal},
+{'X', printHexadecimalUpper}, {'p', printMemoryAddress}, {'S', printNonPrintableCharacters},
+{'r', printReversedString}, {'R', printRot13String}, {'\0', NULL}
 };
 for (i = 0; fmtTypes[i].format != '\0'; i++)
 {
